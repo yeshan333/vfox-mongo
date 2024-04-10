@@ -21,15 +21,12 @@ jobs:
           echo "deb [trusted=yes] https://apt.fury.io/versionfox/ /" | sudo tee /etc/apt/sources.list.d/versionfox.list
           sudo apt-get update
           sudo apt-get install vfox
-          echo 'eval "$(vfox activate bash)"' >> ~/.bashrc
       
       - name: install vfox (MacOS)
         if: runner.os == 'MacOS'
         run: |
           brew tap version-fox/tap
           brew install vfox
-          echo 'eval "$(vfox activate bash)"' >> ~/.bashrc
-          echo 'eval "$(vfox activate zsh)"' >> ~/.zshrc
 
       - name: install scoop (Windows)
         if: runner.os == 'Windows'
@@ -48,25 +45,31 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           vfox install mongo@x86_64-ubuntu2004-8.0.0-rc0
-          vfox use -g mongo@x86_64-ubuntu2004-8.0.0-rc0
+          vfox use -p mongo@x86_64-ubuntu2004-8.0.0-rc0
+          eval "$(vfox activate bash)"
           echo "===============PATH==============="
           echo $PATH
           echo "===============PATH==============="
+          mongo -v
 
       - name: install mongo by vfox-mongo plugin (Darwin)
         if: runner.os == 'MacOS'
         run: |
           vfox install mongo@macos-x86_64-7.3.1
-          vfox use -g mongo@macos-x86_64-7.3.1
+          vfox use -p mongo@macos-x86_64-7.3.1
           echo "===============PATH==============="
           echo $PATH
           echo "===============PATH==============="
+          eval "$(vfox activate zsh)"
+          mongo -v
 
       - name: install mongo by vfox-mongo plugin (Windows)
         if: runner.os == 'Windows'
         run: |
           vfox install mongo@windows-x86_64-7.3.0
-          vfox use -g mongo@windows-x86_64-7.3.0
+          vfox use -p mongo@windows-x86_64-7.3.0
+          Invoke-Expression "$(vfox activate pwsh)"
           echo "===============PATH==============="
           echo $env:PATH
           echo "===============PATH==============="
+          mongo -v
