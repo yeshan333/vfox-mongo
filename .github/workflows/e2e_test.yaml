@@ -60,7 +60,7 @@ jobs:
           echo "===============PATH==============="
           echo $PATH
           echo "===============PATH==============="
-          eval "$(vfox activate zsh)"
+          eval "$(vfox activate bash)"
           mongod --help
 
       - name: install mongo by vfox-mongo plugin (Windows)
