@@ -6,7 +6,7 @@ mongo [vfox](https://github.com/version-fox) plugin. Use the vfox to manage mult
 
 ```shell
 # install plugin
-vfox add --source https://github.com/version-fox/vfox-mongo/archive/refs/heads/main.zip mongo
+vfox add --source https://github.com/yeshan333/vfox-mongo/archive/refs/heads/main.zip mongo
 
 # install an available version
 vofx search mongo
