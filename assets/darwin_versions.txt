@@ -1,3 +1,7 @@
+macos-arm64-enterprise-8.0.0-rc8
+macos-arm64-8.0.0-rc8
+macos-x86_64-8.0.0-rc8
+macos-x86_64-enterprise-8.0.0-rc8
 macos-arm64-enterprise-8.0.0-rc7
 macos-arm64-8.0.0-rc7
 macos-x86_64-8.0.0-rc7
