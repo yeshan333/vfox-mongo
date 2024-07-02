@@ -186,6 +186,10 @@ macos-arm64-enterprise-7.1.0-alpha0
 macos-arm64-7.1.0-alpha0
 macos-x86_64-7.1.0-alpha0
 macos-x86_64-enterprise-7.1.0-alpha0
+macos-arm64-enterprise-7.0.12
+macos-arm64-7.0.12
+macos-x86_64-7.0.12
+macos-x86_64-enterprise-7.0.12
 macos-arm64-enterprise-7.0.12-rc1
 macos-arm64-7.0.12-rc1
 macos-x86_64-7.0.12-rc1
@@ -458,6 +462,10 @@ macos-arm64-enterprise-6.1.0-rc0
 macos-arm64-6.1.0-rc0
 macos-x86_64-6.1.0-rc0
 macos-x86_64-enterprise-6.1.0-rc0
+macos-arm64-enterprise-6.0.16
+macos-arm64-6.0.16
+macos-x86_64-6.0.16
+macos-x86_64-enterprise-6.0.16
 macos-arm64-enterprise-6.0.16-rc0
 macos-arm64-6.0.16-rc0
 macos-x86_64-6.0.16-rc0

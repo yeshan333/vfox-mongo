@@ -92,6 +92,8 @@ windows-x86_64-7.1.0-rc0
 windows-x86_64-enterprise-7.1.0-rc0
 windows-x86_64-7.1.0-alpha0
 windows-x86_64-enterprise-7.1.0-alpha0
+windows-x86_64-7.0.12
+windows-x86_64-enterprise-7.0.12
 windows-x86_64-7.0.12-rc1
 windows-x86_64-enterprise-7.0.12-rc1
 windows-x86_64-7.0.11
@@ -228,6 +230,8 @@ windows-x86_64-6.1.0-rc1
 windows-x86_64-enterprise-6.1.0-rc1
 windows-x86_64-6.1.0-rc0
 windows-x86_64-enterprise-6.1.0-rc0
+windows-x86_64-6.0.16
+windows-x86_64-enterprise-6.0.16
 windows-x86_64-6.0.16-rc0
 windows-x86_64-enterprise-6.0.16-rc0
 windows-x86_64-6.0.15
