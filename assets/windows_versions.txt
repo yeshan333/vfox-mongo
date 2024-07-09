@@ -1,3 +1,5 @@
+windows-x86_64-8.0.0-rc11
+windows-x86_64-enterprise-8.0.0-rc11
 windows-x86_64-8.0.0-rc9
 windows-x86_64-enterprise-8.0.0-rc9
 windows-x86_64-8.0.0-rc8
@@ -412,6 +414,8 @@ windows-x86_64-5.1.0-rc1
 windows-x86_64-enterprise-5.1.0-rc1
 windows-x86_64-5.1.0-rc0
 windows-x86_64-enterprise-5.1.0-rc0
+windows-x86_64-5.0.28-rc0
+windows-x86_64-enterprise-5.0.28-rc0
 windows-x86_64-5.0.27
 windows-x86_64-enterprise-5.0.27
 windows-x86_64-5.0.27-rc0
