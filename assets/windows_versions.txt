@@ -1,3 +1,5 @@
+windows-x86_64-8.0.0-rc16
+windows-x86_64-enterprise-8.0.0-rc16
 windows-x86_64-8.0.0-rc15
 windows-x86_64-enterprise-8.0.0-rc15
 windows-x86_64-8.0.0-rc13
@@ -22,6 +24,8 @@ windows-x86_64-8.0.0-rc2
 windows-x86_64-enterprise-8.0.0-rc2
 windows-x86_64-8.0.0-rc1
 windows-x86_64-enterprise-8.0.0-rc1
+windows-x86_64-7.3.4-rc2
+windows-x86_64-enterprise-7.3.4-rc2
 windows-x86_64-7.3.4-rc1
 windows-x86_64-enterprise-7.3.4-rc1
 windows-x86_64-7.3.3
@@ -100,6 +104,8 @@ windows-x86_64-7.1.0-rc0
 windows-x86_64-enterprise-7.1.0-rc0
 windows-x86_64-7.1.0-alpha0
 windows-x86_64-enterprise-7.1.0-alpha0
+windows-x86_64-7.0.13-rc0
+windows-x86_64-enterprise-7.0.13-rc0
 windows-x86_64-7.0.12
 windows-x86_64-enterprise-7.0.12
 windows-x86_64-7.0.12-rc1
