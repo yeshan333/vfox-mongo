@@ -558,6 +558,14 @@ macos-arm64-enterprise-6.1.0-rc0
 macos-arm64-6.1.0-rc0
 macos-x86_64-6.1.0-rc0
 macos-x86_64-enterprise-6.1.0-rc0
+macos-arm64-enterprise-6.0.20-rc3
+macos-arm64-6.0.20-rc3
+macos-x86_64-6.0.20-rc3
+macos-x86_64-enterprise-6.0.20-rc3
+macos-arm64-enterprise-6.0.20-rc2
+macos-arm64-6.0.20-rc2
+macos-x86_64-6.0.20-rc2
+macos-x86_64-enterprise-6.0.20-rc2
 macos-arm64-enterprise-6.0.19
 macos-arm64-6.0.19
 macos-x86_64-6.0.19

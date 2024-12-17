@@ -278,6 +278,10 @@ windows-x86_64-6.1.0-rc1
 windows-x86_64-enterprise-6.1.0-rc1
 windows-x86_64-6.1.0-rc0
 windows-x86_64-enterprise-6.1.0-rc0
+windows-x86_64-6.0.20-rc3
+windows-x86_64-enterprise-6.0.20-rc3
+windows-x86_64-6.0.20-rc2
+windows-x86_64-enterprise-6.0.20-rc2
 windows-x86_64-6.0.19
 windows-x86_64-enterprise-6.0.19
 windows-x86_64-6.0.18
