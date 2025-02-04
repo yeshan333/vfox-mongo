@@ -882,6 +882,8 @@ macos-x86_64-5.1.0-rc1
 macos-x86_64-enterprise-5.1.0-rc1
 macos-x86_64-5.1.0-rc0
 macos-x86_64-enterprise-5.1.0-rc0
+macos-x86_64-5.0.31
+macos-x86_64-enterprise-5.0.31
 macos-x86_64-5.0.31-rc1
 macos-x86_64-enterprise-5.0.31-rc1
 macos-x86_64-5.0.31-rc0
