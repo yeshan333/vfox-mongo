@@ -1,3 +1,7 @@
+macos-arm64-enterprise-8.1.0-alpha3
+macos-arm64-8.1.0-alpha3
+macos-x86_64-8.1.0-alpha3
+macos-x86_64-enterprise-8.1.0-alpha3
 macos-arm64-enterprise-8.0.5
 macos-arm64-8.0.5
 macos-x86_64-8.0.5
@@ -586,6 +590,10 @@ macos-arm64-enterprise-6.1.0-rc0
 macos-arm64-6.1.0-rc0
 macos-x86_64-6.1.0-rc0
 macos-x86_64-enterprise-6.1.0-rc0
+macos-arm64-enterprise-6.0.21-rc0
+macos-arm64-6.0.21-rc0
+macos-x86_64-6.0.21-rc0
+macos-x86_64-enterprise-6.0.21-rc0
 macos-arm64-enterprise-6.0.20
 macos-arm64-6.0.20
 macos-x86_64-6.0.20
