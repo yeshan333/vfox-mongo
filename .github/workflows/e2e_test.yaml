@@ -39,6 +39,12 @@ jobs:
           ./vfox.exe -version
 
       - name: add vfox-mongo plugin
+        if: runner.os == 'Windows'
+        run: |
+          vfox add --source https://github.com/${{ github.repository_owner }}/vfox-mongo/archive/$env:GITHUB_REF.zip mongo
+
+      - name: add vfox-mongo plugin
+        if: runner.os != 'Windows'
         run: |
           vfox add --source https://github.com/${{ github.repository_owner }}/vfox-mongo/archive/${GITHUB_REF}.zip mongo
 

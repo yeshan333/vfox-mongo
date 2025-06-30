@@ -20,3 +20,6 @@ vofx search mongo
 vfox install mongo@x86_64-ubuntu2004-8.0.0-rc0
 vfox use -p mongo@x86_64-ubuntu2004-8.0.0-rc0
 ```
+
+You can also find an available version from the [Linux & Darwin & Windows version list](https://fastly.jsdelivr.net/gh/yeshan333/vfox-mongo@main/assets/).
+
