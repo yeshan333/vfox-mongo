@@ -3,6 +3,7 @@ name: E2E tests
 on:
   push:
     branches: [main]
+  pull_request:
   workflow_dispatch:
 
 jobs:
@@ -10,38 +11,37 @@ jobs:
     strategy:
       matrix:
         # ref: https://github.com/actions/runner-images
-        os: [ubuntu-20.04, macos-13, windows-2022]
+        os: [ubuntu-latest, macos-13, windows-2022]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
 
-      - name: install vfox (Linux)
-        if: runner.os == 'Linux'
-        run: |
-          echo "deb [trusted=yes] https://apt.fury.io/versionfox/ /" | sudo tee /etc/apt/sources.list.d/versionfox.list
-          sudo apt-get update
-          sudo apt-get install vfox
-      
-      - name: install vfox (MacOS)
-        if: runner.os == 'MacOS'
-        run: |
-          brew tap version-fox/tap
-          brew install vfox
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '^1.24.2' # The Go version to download (if necessary) and use.
 
-      - name: install scoop (Windows)
-        if: runner.os == 'Windows'
-        uses: MinoruSekine/setup-scoop@v3
+      - name: build & install vfox (Unix-like)
+        if: runner.os != 'Windows'
+        run: |
+          git clone https://github.com/version-fox/vfox.git
+          cd vfox
+          go build -o vfox
+          chmod +x vfox
+          cp vfox /usr/local/bin
 
-      - name: install vfox (Windows)      
+      - name: build & install vfox (Windows)
         if: runner.os == 'Windows'
         run: |
-          scoop install vfox
-
+          git clone https://github.com/version-fox/vfox.git
+          cd vfox
+          go build -o vfox.exe
+          echo "$pwd" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+          ./vfox.exe -version
       - name: add vfox-mongo plugin
         run: |
-          vfox add --source https://github.com/yeshan333/vfox-mongo/archive/refs/heads/main.zip mongo
+          vfox add --source https://github.com/${{ github.repository_owner }}/vfox-mongo/archive/${GITHUB_REF}.zip mongo
 
-      - name: install mongo by vfox-mongo plugin (Linux)
+      - name: install mongo server by vfox-mongo plugin (Linux)
         if: runner.os == 'Linux'
         run: |
           vfox install mongo@x86_64-ubuntu2004-8.0.0-rc0
@@ -52,7 +52,7 @@ jobs:
           echo "===============PATH==============="
           mongod --help
 
-      - name: install mongo by vfox-mongo plugin (Darwin)
+      - name: install mongo server by vfox-mongo plugin (Darwin)
         if: runner.os == 'MacOS'
         run: |
           vfox install mongo@macos-x86_64-7.3.1
@@ -63,7 +63,7 @@ jobs:
           eval "$(vfox activate bash)"
           mongod --help
 
-      - name: install mongo by vfox-mongo plugin (Windows)
+      - name: install mongo server by vfox-mongo plugin (Windows)
         if: runner.os == 'Windows'
         run: |
           vfox install mongo@windows-x86_64-7.3.0

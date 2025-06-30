@@ -1,6 +1,10 @@
 # vfox-mongo plugin
 
-mongo [vfox](https://github.com/version-fox) plugin. Use the vfox to manage multiple mongo server versions in Linux/Darwin/Windows. vofx-mongo plugin would download and install the mongo server version from : https://www.mongodb.com/download-center/community/releases/archive.
+<div align="center">
+[![E2E tests](https://github.com/yeshan333/vfox-mongo/actions/workflows/e2e_test.yaml/badge.svg)](https://github.com/yeshan333/vfox-mongo/actions/workflows/e2e_test.yaml)
+</div>
+
+mongo [vfox](https://github.com/version-fox) plugin. Use the vfox to manage multiple mongo server versions in Linux/Darwin/Windows. vofx-mongo plugin would download and install the mongo server version from : [https://www.mongodb.com/download-center/community/releases/archive].
 
 ## Usage
 
