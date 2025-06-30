@@ -11,7 +11,7 @@ jobs:
     strategy:
       matrix:
         # ref: https://github.com/actions/runner-images
-        os: [ubuntu-latest, macos-13, windows-2022]
+        os: [ubuntu-22.04, macos-13, windows-2022]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
@@ -45,8 +45,8 @@ jobs:
       - name: install mongo server by vfox-mongo plugin (Linux)
         if: runner.os == 'Linux'
         run: |
-          vfox install mongo@x86_64-ubuntu2004-8.0.0-rc0
-          vfox use -g mongo@x86_64-ubuntu2004-8.0.0-rc0
+          vfox install mongo@x86_64-ubuntu2204-8.0.6
+          vfox use -g mongo@x86_64-ubuntu2204-8.0.6
           eval "$(vfox activate bash)"
           echo "===============PATH==============="
           echo $PATH
