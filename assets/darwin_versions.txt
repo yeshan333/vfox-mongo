@@ -406,6 +406,10 @@ macos-arm64-enterprise-7.1.0-alpha0
 macos-arm64-7.1.0-alpha0
 macos-x86_64-7.1.0-alpha0
 macos-x86_64-enterprise-7.1.0-alpha0
+macos-arm64-enterprise-7.0.24-rc0
+macos-arm64-7.0.24-rc0
+macos-x86_64-7.0.24-rc0
+macos-x86_64-enterprise-7.0.24-rc0
 macos-arm64-enterprise-7.0.23
 macos-arm64-7.0.23
 macos-x86_64-7.0.23
