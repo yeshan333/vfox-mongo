@@ -82,6 +82,10 @@ macos-arm64-enterprise-8.1.0-alpha3
 macos-arm64-8.1.0-alpha3
 macos-x86_64-8.1.0-alpha3
 macos-x86_64-enterprise-8.1.0-alpha3
+macos-arm64-enterprise-8.0.14-rc0
+macos-arm64-8.0.14-rc0
+macos-x86_64-8.0.14-rc0
+macos-x86_64-enterprise-8.0.14-rc0
 macos-arm64-enterprise-8.0.13
 macos-arm64-8.0.13
 macos-x86_64-8.0.13
