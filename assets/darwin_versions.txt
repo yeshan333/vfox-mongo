@@ -1,3 +1,11 @@
+macos-arm64-enterprise-8.2.1-rc1
+macos-arm64-8.2.1-rc1
+macos-x86_64-8.2.1-rc1
+macos-x86_64-enterprise-8.2.1-rc1
+macos-arm64-enterprise-8.2.1-rc0
+macos-arm64-8.2.1-rc0
+macos-x86_64-8.2.1-rc0
+macos-x86_64-enterprise-8.2.1-rc0
 macos-arm64-enterprise-8.2.0
 macos-arm64-8.2.0
 macos-x86_64-8.2.0
