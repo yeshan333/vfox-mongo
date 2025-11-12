@@ -114,6 +114,10 @@ function mongo_utils.extract_version_number(full_version, prefix)
         local remainder = full_version:sub(#prefix + 1)
         -- Remove "enterprise-" prefix if present
         remainder = remainder:gsub("^enterprise%-", "")
+        -- If the prefix was just arch (e.g., "x86_64-"), remove the distro part too
+        -- This handles the fallback case when distro detection fails
+        -- Format: ubuntu2404-8.0.6 -> 8.0.6
+        remainder = remainder:gsub("^[^%-]+%-([0-9])", "%1")
         return remainder
     end
     return nil
