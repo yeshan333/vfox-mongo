@@ -76,10 +76,12 @@ function mongo_utils.get_platform_prefixes()
     local prefixes = {}
     
     if RUNTIME.osType == "darwin" then
-        -- For macOS, the format is "macos-{arch}-"
+        -- For macOS, the format is "macos-{arch}-" for newer versions
+        -- and "osx-{arch}-" for older versions
         local archs = mongo_utils.get_arch_prefix()
         for _, arch in ipairs(archs) do
             table.insert(prefixes, "macos-" .. arch .. "-")
+            table.insert(prefixes, "osx-" .. arch .. "-")
         end
     elseif RUNTIME.osType == "windows" then
         -- For Windows, the format is "windows-{arch}-"
