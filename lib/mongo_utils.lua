@@ -150,11 +150,16 @@ function mongo_utils.get_mongo_release_verions()
                     table.insert(result, {
                         version = version_number
                     })
-                    -- Store the first matching full version for this simplified version
-                    if not mongo_utils.version_map[version_number] then
-                        mongo_utils.version_map[version_number] = full_version
-                    end
                 end
+                
+                -- Store the full version mapping, preferring non-enterprise versions
+                if not mongo_utils.version_map[version_number] then
+                    mongo_utils.version_map[version_number] = full_version
+                elseif not string.match(full_version, "%-enterprise%-") and string.match(mongo_utils.version_map[version_number], "%-enterprise%-") then
+                    -- Replace enterprise version with non-enterprise version
+                    mongo_utils.version_map[version_number] = full_version
+                end
+                
                 break  -- Found a match, no need to check other prefixes
             end
         end
