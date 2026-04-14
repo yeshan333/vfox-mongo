@@ -264,6 +264,8 @@ windows-x86_64-7.1.0-rc0
 windows-x86_64-enterprise-7.1.0-rc0
 windows-x86_64-7.1.0-alpha0
 windows-x86_64-enterprise-7.1.0-alpha0
+windows-x86_64-7.0.32-rc2
+windows-x86_64-enterprise-7.0.32-rc2
 windows-x86_64-7.0.32-rc1
 windows-x86_64-enterprise-7.0.32-rc1
 windows-x86_64-7.0.31
