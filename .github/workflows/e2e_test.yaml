@@ -7,6 +7,17 @@ on:
   workflow_dispatch:
 
 jobs:
+  unit_tests:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: install Lua
+        run: sudo apt-get install -y lua5.4
+
+      - name: run unit tests
+        run: lua5.4 tests/test_mongo_utils.lua
+
   e2e_tests:
     strategy:
       matrix:
@@ -48,11 +59,23 @@ jobs:
         run: |
           vfox add --source https://github.com/${{ github.repository_owner }}/vfox-mongo/archive/${GITHUB_REF}.zip mongo
 
+      - name: verify vfox search shows clean version numbers (Unix-like)
+        if: runner.os != 'Windows'
+        run: |
+          # vfox search is interactive; use Available hook output via vfox list --remote
+          # Verify the output does NOT contain platform-specific prefixes
+          output=$(vfox search mongo 2>&1 || true)
+          echo "$output"
+          if echo "$output" | grep -qE '^[[:space:]]*(x86_64|aarch64|macos|windows)-'; then
+            echo "ERROR: vfox search returned platform-specific version strings instead of clean version numbers"
+            exit 1
+          fi
+
       - name: install mongo server by vfox-mongo plugin (Linux)
         if: runner.os == 'Linux'
         run: |
-          vfox install mongo@x86_64-ubuntu2204-8.0.6
-          vfox use -g mongo@x86_64-ubuntu2204-8.0.6
+          vfox install mongo@8.0.6
+          vfox use -g mongo@8.0.6
           eval "$(vfox activate bash)"
           echo "===============PATH==============="
           echo $PATH
@@ -62,8 +85,8 @@ jobs:
       - name: install mongo server by vfox-mongo plugin (Darwin)
         if: runner.os == 'MacOS'
         run: |
-          vfox install mongo@macos-x86_64-7.3.1
-          vfox use -g mongo@macos-x86_64-7.3.1
+          vfox install mongo@7.3.1
+          vfox use -g mongo@7.3.1
           echo "===============PATH==============="
           echo $PATH
           echo "===============PATH==============="
@@ -73,8 +96,8 @@ jobs:
       - name: install mongo server by vfox-mongo plugin (Windows)
         if: runner.os == 'Windows'
         run: |
-          vfox install mongo@windows-x86_64-7.3.0
-          vfox use -g mongo@windows-x86_64-7.3.0
+          vfox install mongo@7.3.0
+          vfox use -g mongo@7.3.0
           Invoke-Expression "$(vfox activate pwsh)"
           echo "===============PATH==============="
           echo $env:PATH
