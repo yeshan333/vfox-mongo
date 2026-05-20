@@ -7,6 +7,38 @@ on:
   workflow_dispatch:
 
 jobs:
+  unit_tests:
+    strategy:
+      matrix:
+        # ref: https://github.com/actions/runner-images
+        os: [ubuntu-22.04, macos-13, windows-2022]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: install Lua (Linux)
+        if: runner.os == 'Linux'
+        run: sudo apt-get install -y lua5.4
+
+      - name: install Lua (macOS)
+        if: runner.os == 'macOS'
+        run: brew install lua
+
+      - name: install Lua (Windows)
+        if: runner.os == 'Windows'
+        run: choco install lua --no-progress -y
+
+      - name: run unit tests (Unix-like)
+        if: runner.os != 'Windows'
+        run: |
+          LUA=$(command -v lua5.4 2>/dev/null || command -v lua)
+          $LUA tests/test_mongo_utils.lua
+
+      - name: run unit tests (Windows)
+        if: runner.os == 'Windows'
+        shell: cmd
+        run: lua tests\test_mongo_utils.lua
+
   e2e_tests:
     strategy:
       matrix:
@@ -16,27 +48,26 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-go@v5
-        with:
-          go-version: '^1.24.2' # The Go version to download (if necessary) and use.
-
-      - name: build & install vfox (Unix-like)
-        if: runner.os != 'Windows'
+      - name: install vfox (Linux)
+        if: runner.os == 'Linux'
         run: |
-          git clone https://github.com/version-fox/vfox.git
-          cd vfox
-          go build -o vfox
-          chmod +x vfox
-          cp vfox /usr/local/bin
+          echo "deb [trusted=yes] https://apt.fury.io/versionfox/ /" | sudo tee /etc/apt/sources.list.d/versionfox.list
+          sudo apt-get update
+          sudo apt-get install vfox
 
-      - name: build & install vfox (Windows)
+      - name: install vfox (macOS)
+        if: runner.os == 'macOS'
+        run: |
+          brew tap version-fox/tap
+          brew install vfox
+
+      - name: install scoop (Windows)
         if: runner.os == 'Windows'
-        run: |
-          git clone https://github.com/version-fox/vfox.git
-          cd vfox
-          go build -o vfox.exe
-          echo "$pwd" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
-          ./vfox.exe -version
+        uses: MinoruSekine/setup-scoop@v4
+
+      - name: install vfox (Windows)
+        if: runner.os == 'Windows'
+        run: scoop install vfox
 
       - name: add vfox-mongo plugin
         if: runner.os == 'Windows'
@@ -48,11 +79,23 @@ jobs:
         run: |
           vfox add --source https://github.com/${{ github.repository_owner }}/vfox-mongo/archive/${GITHUB_REF}.zip mongo
 
+      - name: verify vfox search shows clean version numbers (Unix-like)
+        if: runner.os != 'Windows'
+        run: |
+          # Verify the output does NOT contain platform-specific prefixes
+          output=$(vfox search mongo 2>&1 || true)
+          echo "$output"
+          if echo "$output" | grep -qE '^[[:space:]]*(x86_64|aarch64|macos|windows)-'; then
+            echo "ERROR: vfox search returned platform-specific version strings instead of clean version numbers"
+            exit 1
+          fi
+
       - name: install mongo server by vfox-mongo plugin (Linux)
         if: runner.os == 'Linux'
         run: |
-          vfox install mongo@x86_64-ubuntu2204-8.0.6
-          vfox use -g mongo@x86_64-ubuntu2204-8.0.6
+          vfox install mongo@8.0.6
+          eval "$(vfox activate bash)"
+          vfox use -g mongo@8.0.6
           eval "$(vfox activate bash)"
           echo "===============PATH==============="
           echo $PATH
@@ -60,21 +103,23 @@ jobs:
           mongod --help
 
       - name: install mongo server by vfox-mongo plugin (Darwin)
-        if: runner.os == 'MacOS'
+        if: runner.os == 'macOS'
         run: |
-          vfox install mongo@macos-x86_64-7.3.1
-          vfox use -g mongo@macos-x86_64-7.3.1
+          vfox install mongo@7.3.1
+          eval "$(vfox activate bash)"
+          vfox use -g mongo@7.3.1
+          eval "$(vfox activate bash)"
           echo "===============PATH==============="
           echo $PATH
           echo "===============PATH==============="
-          eval "$(vfox activate bash)"
           mongod --help
 
       - name: install mongo server by vfox-mongo plugin (Windows)
         if: runner.os == 'Windows'
         run: |
-          vfox install mongo@windows-x86_64-7.3.0
-          vfox use -g mongo@windows-x86_64-7.3.0
+          vfox install mongo@7.3.0
+          Invoke-Expression "$(vfox activate pwsh)"
+          vfox use -g mongo@7.3.0
           Invoke-Expression "$(vfox activate pwsh)"
           echo "===============PATH==============="
           echo $env:PATH
