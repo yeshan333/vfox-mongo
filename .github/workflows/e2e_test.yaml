@@ -28,8 +28,28 @@ jobs:
         if: runner.os == 'Windows'
         run: |
           choco install lua --no-progress -y
-          $env:Path = "C:\ProgramData\chocolatey\bin;$env:Path"
-          lua tests\test_mongo_utils.lua
+          Import-Module "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
+          refreshenv
+          $luaExe = (Get-Command lua -ErrorAction SilentlyContinue).Source
+          if (-not $luaExe) {
+            $candidates = @(
+              "C:\Program Files (x86)\Lua\5.1\lua.exe",
+              "C:\Program Files (x86)\Lua\5.1\bin\lua.exe",
+              "C:\Program Files\Lua\5.1\lua.exe",
+              "C:\ProgramData\chocolatey\bin\lua.exe"
+            )
+            foreach ($candidate in $candidates) {
+              if (Test-Path $candidate) {
+                $luaExe = $candidate
+                break
+              }
+            }
+          }
+          if (-not $luaExe) {
+            Write-Error "Lua executable not found after choco install"
+            exit 1
+          }
+          & $luaExe tests\test_mongo_utils.lua
 
       - name: run unit tests (Unix-like)
         if: runner.os != 'Windows'
