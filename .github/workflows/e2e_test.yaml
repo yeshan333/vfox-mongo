@@ -24,19 +24,18 @@ jobs:
         if: runner.os == 'macOS'
         run: brew install lua
 
-      - name: install Lua (Windows)
+      - name: install and run unit tests (Windows)
         if: runner.os == 'Windows'
-        run: choco install lua --no-progress -y
+        run: |
+          choco install lua --no-progress -y
+          $env:Path = "C:\ProgramData\chocolatey\bin;$env:Path"
+          lua tests\test_mongo_utils.lua
 
       - name: run unit tests (Unix-like)
         if: runner.os != 'Windows'
         run: |
           LUA=$(command -v lua5.4 2>/dev/null || command -v lua)
           $LUA tests/test_mongo_utils.lua
-
-      - name: run unit tests (Windows)
-        if: runner.os == 'Windows'
-        run: lua tests\test_mongo_utils.lua
 
   e2e_tests:
     strategy:
@@ -93,9 +92,10 @@ jobs:
       - name: install mongo server by vfox-mongo plugin (Linux)
         if: runner.os == 'Linux'
         run: |
-          eval "$(vfox activate bash)"
           vfox install mongo@8.0.6
+          eval "$(vfox activate bash)"
           vfox use -g mongo@8.0.6
+          eval "$(vfox activate bash)"
           echo "===============PATH==============="
           echo $PATH
           echo "===============PATH==============="
@@ -104,9 +104,10 @@ jobs:
       - name: install mongo server by vfox-mongo plugin (Darwin)
         if: runner.os == 'macOS'
         run: |
-          eval "$(vfox activate bash)"
           vfox install mongo@7.3.1
+          eval "$(vfox activate bash)"
           vfox use -g mongo@7.3.1
+          eval "$(vfox activate bash)"
           echo "===============PATH==============="
           echo $PATH
           echo "===============PATH==============="
@@ -115,9 +116,10 @@ jobs:
       - name: install mongo server by vfox-mongo plugin (Windows)
         if: runner.os == 'Windows'
         run: |
-          Invoke-Expression "$(vfox activate pwsh)"
           vfox install mongo@7.3.0
+          Invoke-Expression "$(vfox activate pwsh)"
           vfox use -g mongo@7.3.0
+          Invoke-Expression "$(vfox activate pwsh)"
           echo "===============PATH==============="
           echo $env:PATH
           echo "===============PATH==============="
