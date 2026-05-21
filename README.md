@@ -8,6 +8,14 @@
 
 mongo [vfox](https://github.com/version-fox) plugin. Use the vfox to manage multiple mongo server versions in Linux/Darwin/Windows. vfox-mongo plugin would download and install the mongo server version from : [https://www.mongodb.com/download-center/community/releases/archive].
 
+**mongosh auto-install**: Since MongoDB 6.0+, the legacy `mongo` shell is no longer bundled in the server tarball. This plugin automatically installs the latest [mongosh](https://github.com/mongodb-js/mongosh) alongside the server. If the mongosh download fails (e.g., network issues), a warning is printed but the MongoDB server installation still succeeds.
+
+To install a specific mongosh version, set the `MONGOSH_VERSION` environment variable:
+
+```shell
+MONGOSH_VERSION=2.8.3 vfox install mongo@8.0.6
+```
+
 ## Usage
 
 ### Install with vfox

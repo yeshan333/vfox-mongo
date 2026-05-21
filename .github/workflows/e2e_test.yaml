@@ -49,12 +49,14 @@ jobs:
         run: |
           LUA=$(command -v lua5.4 2>/dev/null || command -v lua)
           $LUA tests/test_mongo_utils.lua
+          $LUA tests/test_mongosh_utils.lua
 
       - name: run unit tests (Windows)
         if: runner.os == 'Windows'
         shell: pwsh
         run: |
           & $env:LUA_EXE tests/test_mongo_utils.lua
+          & $env:LUA_EXE tests/test_mongosh_utils.lua
 
   e2e_tests:
     strategy:
@@ -118,6 +120,7 @@ jobs:
           echo $PATH
           echo "===============PATH==============="
           mongod --help
+          mongosh --version
 
       - name: install mongo server by vfox-mongo plugin (Darwin)
         if: runner.os == 'macOS'
@@ -130,6 +133,7 @@ jobs:
           echo $PATH
           echo "===============PATH==============="
           mongod --help
+          mongosh --version
 
       - name: install mongo server by vfox-mongo plugin (Windows)
         if: runner.os == 'Windows'
@@ -142,3 +146,4 @@ jobs:
           echo $env:PATH
           echo "===============PATH==============="
           mongod --help
+          mongosh --version
