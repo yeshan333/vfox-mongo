@@ -20,7 +20,11 @@ MONGOSH_VERSION=2.8.3 vfox install mongo@8.0.6
 
 Both `mongod` and `mongosh` versions are maintained in this repo by scheduled GitHub Actions that scrape upstream metadata weekly and commit version lists under `assets/`. At install time the plugin resolves versions via the [jsdelivr CDN](https://fastly.jsdelivr.net/gh/yeshan333/vfox-mongo@main/assets/) — no live calls to GitHub API or MongoDB CDN are needed for version lookup, which avoids rate-limit failures in CI and keeps installs fast.
 
+<div align="center">
+
 ![Version resolution flow](docs/version-flow.svg)
+
+</div>
 
 ## Usage
 
