@@ -8,13 +8,19 @@
 
 mongo [vfox](https://github.com/version-fox) plugin. Use the vfox to manage multiple mongo server versions in Linux/Darwin/Windows. vfox-mongo plugin would download and install the mongo server version from : [https://www.mongodb.com/download-center/community/releases/archive].
 
-**mongosh auto-install**: Since MongoDB 6.0+, the legacy `mongo` shell is no longer bundled in the server tarball. This plugin automatically installs the latest [mongosh](https://github.com/mongodb-js/mongosh) alongside the server. If the mongosh download fails (e.g., network issues), a warning is printed but the MongoDB server installation still succeeds.
+**mongosh auto-install**: Since MongoDB 6.0+, the legacy `mongo` shell is no longer bundled in the server tarball. This plugin automatically installs the latest [mongosh](https://github.com/mongodb-js/mongosh) alongside the server. The mongosh version list is maintained in-repo ([`mongosh_versions.txt`](assets/mongosh_versions.txt)) and resolved at install time via the [jsdelivr CDN](https://fastly.jsdelivr.net/gh/yeshan333/vfox-mongo@main/assets/mongosh_versions.txt) — no live GitHub API call is made, avoiding rate-limit failures in CI environments.
 
 To install a specific mongosh version, set the `MONGOSH_VERSION` environment variable:
 
 ```shell
 MONGOSH_VERSION=2.8.3 vfox install mongo@8.0.6
 ```
+
+## How it works
+
+Both `mongod` and `mongosh` versions are maintained in this repo by scheduled GitHub Actions that scrape upstream metadata weekly and commit version lists under `assets/`. At install time the plugin resolves versions via the [jsdelivr CDN](https://fastly.jsdelivr.net/gh/yeshan333/vfox-mongo@main/assets/) — no live calls to GitHub API or MongoDB CDN are needed for version lookup, which avoids rate-limit failures in CI and keeps installs fast.
+
+![Version resolution flow](docs/version-flow.svg)
 
 ## Usage
 
@@ -52,5 +58,5 @@ mise use -g mongo@8.0.6
 mongod --help
 ```
 
-You can also find an available version from the [Linux & Darwin & Windows version list](https://fastly.jsdelivr.net/gh/yeshan333/vfox-mongo@main/assets/).
+You can browse the maintained version lists under the [`assets/` directory](https://github.com/yeshan333/vfox-mongo/tree/main/assets) or via jsdelivr ([mongo](https://fastly.jsdelivr.net/gh/yeshan333/vfox-mongo@main/assets/) · [mongosh](https://fastly.jsdelivr.net/gh/yeshan333/vfox-mongo@main/assets/mongosh_versions.txt)).
 

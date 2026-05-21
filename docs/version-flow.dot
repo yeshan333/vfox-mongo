@@ -1,0 +1,110 @@
+digraph version_flow {
+    rankdir=TB
+    fontname="Helvetica"
+    node [fontname="Helvetica", fontsize=11, style="rounded,filled"]
+    edge [fontname="Helvetica", fontsize=9]
+    bgcolor="transparent"
+    compound=true
+
+    // Upstream sources
+    subgraph cluster_upstream {
+        label="Upstream Sources"
+        style="rounded,dashed"
+        color="#666666"
+        fontcolor="#666666"
+
+        mongo_upstream [
+            label="downloads.mongodb.org\n/full.json"
+            shape=box fillcolor="#E3F2FD"
+        ]
+        mongosh_upstream [
+            label="api.github.com/repos\n/mongodb-js/mongosh/releases"
+            shape=box fillcolor="#E8F5E9"
+        ]
+    }
+
+    // GitHub Actions workflows
+    subgraph cluster_workflows {
+        label="Scheduled GitHub Actions (weekly)"
+        style="rounded,dashed"
+        color="#666666"
+        fontcolor="#666666"
+
+        wf_mongo [
+            label="update_mongo_versions.yaml\nTue 16:00 UTC"
+            shape=box fillcolor="#BBDEFB"
+        ]
+        wf_mongosh [
+            label="update_mongosh_versions.yaml\nThu 16:00 UTC"
+            shape=box fillcolor="#C8E6C9"
+        ]
+    }
+
+    // Repo assets
+    subgraph cluster_repo {
+        label="vfox-mongo repo / assets/"
+        style="rounded,dashed"
+        color="#666666"
+        fontcolor="#666666"
+
+        versions_mongo [
+            label="{linux,darwin,windows}\n_versions.txt"
+            shape=note fillcolor="#BBDEFB"
+        ]
+        versions_mongosh [
+            label="mongosh_versions.txt"
+            shape=note fillcolor="#C8E6C9"
+        ]
+    }
+
+    // CDN
+    cdn [
+        label="fastly.jsdelivr.net/gh/yeshan333/vfox-mongo@main/assets/"
+        shape=cylinder fillcolor="#FFF9C4"
+    ]
+
+    // Runtime hooks
+    subgraph cluster_runtime {
+        label="vfox / mise plugin runtime"
+        style="rounded,dashed"
+        color="#666666"
+        fontcolor="#666666"
+
+        hook_pre [
+            label="PreInstall hook\n(resolve mongod version)"
+            shape=box fillcolor="#BBDEFB"
+        ]
+        hook_post [
+            label="PostInstall hook\n(resolve mongosh version)"
+            shape=box fillcolor="#C8E6C9"
+        ]
+    }
+
+    // Binary downloads
+    bin_mongo [
+        label="fastdl.mongodb.org\nmongod tarball"
+        shape=folder fillcolor="#E3F2FD"
+    ]
+    bin_mongosh [
+        label="github.com/mongodb-js\n/mongosh/releases\nmongosh tarball"
+        shape=folder fillcolor="#E8F5E9"
+    ]
+
+    // Edges - mongod pipeline (left)
+    mongo_upstream -> wf_mongo [label="fetch JSON"]
+    wf_mongo -> versions_mongo [label="write & commit"]
+    versions_mongo -> cdn [label="served via"]
+
+    // Edges - mongosh pipeline (right)
+    mongosh_upstream -> wf_mongosh [label="paginate API"]
+    wf_mongosh -> versions_mongosh [label="write & commit"]
+    versions_mongosh -> cdn [label="served via"]
+
+    // CDN to runtime
+    cdn -> hook_pre [label="HTTP GET"]
+    cdn -> hook_post [label="HTTP GET"]
+
+    // Runtime to binaries
+    hook_pre -> bin_mongo [label="download binary"]
+    hook_post -> bin_mongosh [label="download binary"]
+}
