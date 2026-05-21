@@ -26,7 +26,23 @@ jobs:
 
       - name: install Lua (Windows)
         if: runner.os == 'Windows'
-        run: choco install lua --no-progress -y
+        shell: pwsh
+        run: |
+          choco install lua --no-progress -y
+
+          $candidates = @(
+            (Get-Command lua -ErrorAction SilentlyContinue).Source,
+            "$env:ChocolateyInstall\\bin\\lua.exe",
+            "$env:ChocolateyInstall\\lib\\lua\\tools\\lua.exe",
+            "${env:ProgramFiles(x86)}\\Lua\\5.1\\lua.exe",
+            "$env:ProgramFiles\\Lua\\5.1\\lua.exe"
+          ) | Where-Object { $_ -and (Test-Path $_) }
+
+          $lua = $candidates | Select-Object -First 1
+          if (-not $lua) { throw "lua.exe not found after installation" }
+
+          "LUA_EXE=$lua" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+          (Split-Path $lua) | Out-File -FilePath $env:GITHUB_PATH -Append -Encoding utf8
 
       - name: run unit tests (Unix-like)
         if: runner.os != 'Windows'
@@ -36,8 +52,9 @@ jobs:
 
       - name: run unit tests (Windows)
         if: runner.os == 'Windows'
-        shell: cmd
-        run: lua tests\test_mongo_utils.lua
+        shell: pwsh
+        run: |
+          & $env:LUA_EXE tests/test_mongo_utils.lua
 
   e2e_tests:
     strategy:
