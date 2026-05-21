@@ -64,8 +64,6 @@ jobs:
         # ref: https://github.com/actions/runner-images
         os: [ubuntu-22.04, macos-latest, windows-2022]
     runs-on: ${{ matrix.os }}
-    env:
-      MONGOSH_VERSION: "2.8.3"
     steps:
       - uses: actions/checkout@v4
 

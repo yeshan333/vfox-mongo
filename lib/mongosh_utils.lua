@@ -1,24 +1,30 @@
 local http = require("http")
-local json = require("json")
 
 local mongosh_utils = {}
 
-function mongosh_utils.get_latest_version()
-    local resp, err = http.get({
-        url = "https://api.github.com/repos/mongodb-js/mongosh/releases/latest",
-        headers = { ["Accept"] = "application/vnd.github.v3+json" }
-    })
+function mongosh_utils.get_versions_from_remote()
+    local url = "https://fastly.jsdelivr.net/gh/yeshan333/vfox-mongo@main/assets/mongosh_versions.txt"
+    local resp, err = http.get({ url = url })
     if err ~= nil then
-        return nil, "Failed to fetch mongosh latest version: " .. tostring(err)
+        return nil, "Failed to fetch mongosh versions: " .. tostring(err)
     end
     if resp.status_code ~= 200 then
-        return nil, "GitHub API returned status " .. resp.status_code
+        return nil, "jsdelivr returned status " .. resp.status_code
     end
-    local data = json.decode(resp.body)
-    if data == nil or data.tag_name == nil then
-        return nil, "Failed to parse mongosh release info"
+    local versions = {}
+    for v in string.gmatch(resp.body, '([^\n]+)') do
+        if v ~= "" then table.insert(versions, v) end
     end
-    return string.gsub(data.tag_name, "^v", ""), nil
+    if #versions == 0 then
+        return nil, "Empty mongosh version list"
+    end
+    return versions, nil
+end
+
+function mongosh_utils.get_latest_version()
+    local versions, err = mongosh_utils.get_versions_from_remote()
+    if err then return nil, err end
+    return versions[1], nil
 end
 
 function mongosh_utils.normalize_arch()

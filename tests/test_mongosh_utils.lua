@@ -8,9 +8,12 @@
 -- Minimal vfox runtime stub
 RUNTIME = { osType = "linux", archType = "amd64" }
 
--- Stub the http and json modules
-package.loaded["http"] = {}
-package.loaded["json"] = {}
+-- Stub the http module with a controllable get function
+local http_stub = {}
+http_stub.response = { status_code = 200, body = "2.8.3\n2.8.2\n2.7.0\n" }
+http_stub.err = nil
+http_stub.get = function(_) return http_stub.response, http_stub.err end
+package.loaded["http"] = http_stub
 
 -- Point require() at the lib directory
 package.path = "./lib/?.lua;" .. package.path
@@ -91,6 +94,41 @@ assert_eq("windows url",
     url,
     "https://github.com/mongodb-js/mongosh/releases/download/v2.8.3/mongosh-2.8.3-win32-x64.zip")
 assert_eq("windows filename", filename, "mongosh-2.8.3-win32-x64.zip")
+
+-- get_versions_from_remote (success)
+http_stub.response = { status_code = 200, body = "2.8.3\n2.8.2\n2.7.0\n" }
+http_stub.err = nil
+local versions, err = mongosh_utils.get_versions_from_remote()
+assert_eq("versions_from_remote no error", err, nil)
+assert_eq("versions_from_remote count", #versions, 3)
+assert_eq("versions_from_remote first", versions[1], "2.8.3")
+assert_eq("versions_from_remote last", versions[3], "2.7.0")
+
+-- get_latest_version (success)
+local latest, lerr = mongosh_utils.get_latest_version()
+assert_eq("get_latest_version no error", lerr, nil)
+assert_eq("get_latest_version value", latest, "2.8.3")
+
+-- get_versions_from_remote (http error)
+http_stub.response = nil
+http_stub.err = "connection refused"
+versions, err = mongosh_utils.get_versions_from_remote()
+assert_eq("versions_from_remote http err returns nil", versions, nil)
+assert_eq("versions_from_remote http err msg", err ~= nil, true)
+
+-- get_versions_from_remote (non-200 status)
+http_stub.response = { status_code = 403, body = "" }
+http_stub.err = nil
+versions, err = mongosh_utils.get_versions_from_remote()
+assert_eq("versions_from_remote 403 returns nil", versions, nil)
+assert_eq("versions_from_remote 403 err msg", err ~= nil, true)
+
+-- get_versions_from_remote (empty body)
+http_stub.response = { status_code = 200, body = "" }
+http_stub.err = nil
+versions, err = mongosh_utils.get_versions_from_remote()
+assert_eq("versions_from_remote empty returns nil", versions, nil)
+assert_eq("versions_from_remote empty err msg", err ~= nil, true)
 
 -- summary
 print(string.format("\n%d passed, %d failed", pass_count, fail_count))
