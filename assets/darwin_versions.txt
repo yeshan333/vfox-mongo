@@ -1,3 +1,7 @@
+macos-arm64-enterprise-9.0.2
+macos-arm64-9.0.2
+macos-x86_64-9.0.2
+macos-x86_64-enterprise-9.0.2
 macos-arm64-enterprise-9.0.0-rc0
 macos-arm64-9.0.0-rc0
 macos-x86_64-9.0.0-rc0
@@ -670,6 +674,10 @@ macos-arm64-enterprise-7.0.43
 macos-arm64-7.0.43
 macos-x86_64-7.0.43
 macos-x86_64-enterprise-7.0.43
+macos-arm64-enterprise-7.0.42-rc0
+macos-arm64-7.0.42-rc0
+macos-x86_64-7.0.42-rc0
+macos-x86_64-enterprise-7.0.42-rc0
 macos-arm64-enterprise-7.0.41
 macos-arm64-7.0.41
 macos-x86_64-7.0.41
