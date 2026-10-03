@@ -1,0 +1,22 @@
+{
+  "plugin_title": "vfox-mongo",
+  "product": "MongoDB",
+  "repo_url": "https://github.com/yeshan333/vfox-mongo",
+  "official_url": "https://www.mongodb.com/",
+  "official_name": "MongoDB",
+  "example_version": "8.0.6",
+  "site_url": "https://shansan.top/vfox-mongo",
+  "vfox_add_code": "vfox add --source https://github.com/yeshan333/vfox-mongo/archive/refs/heads/main.zip mongo",
+  "vfox_install_code": "vfox install mongo@8.0.6",
+  "vfox_run_code": "vfox exec mongo@8.0.6 -- mongod --version",
+  "mise_prepare_code": "mise ls-remote vfox:yeshan333/vfox-mongo",
+  "mise_install_code": "mise use -g vfox:yeshan333/vfox-mongo@8.0.6",
+  "mise_run_code": "mise exec -- mongod --version",
+  "project_code": "eval \"$(vfox activate bash)\"\nvfox use -p mongo@8.0.6\nvfox exec mongo -- mongod --version",
+  "extra_code": "vfox exec mongo@8.0.6 -- mongod --version\nvfox exec mongo@8.0.6 -- mongosh --version",
+  "special_code": "MONGOSH_VERSION=2.8.3 vfox install mongo@8.0.6\nvfox exec mongo@8.0.6 -- mongosh --version",
+  "special_shell": "Bash",
+  "linux_hint": "MongoDB Community Server",
+  "macos_hint": "MongoDB Community Server",
+  "terminal_code": "$ vfox install mongo@8.0.6\n$ vfox exec mongo@8.0.6 -- mongod --version"
+}
