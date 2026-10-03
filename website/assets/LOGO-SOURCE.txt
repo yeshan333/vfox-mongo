@@ -1,0 +1,4 @@
+Official project logo, copied without modification.
+Source: https://raw.githubusercontent.com/mongodb/leafygreen-ui/main/tools/storybook-addon/static/logo.svg
+Used to identify the runtime managed by this plugin, not to imply endorsement.
+Dark-background logo: https://raw.githubusercontent.com/mongodb/leafygreen-ui/main/tools/storybook-addon/static/logo-dark.svg
