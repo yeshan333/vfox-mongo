@@ -64,3 +64,9 @@ mongod --help
 
 You can browse the maintained version lists under the [`assets/` directory](https://github.com/yeshan333/vfox-mongo/tree/main/assets) or via jsdelivr ([mongo](https://fastly.jsdelivr.net/gh/yeshan333/vfox-mongo@main/assets/) · [mongosh](https://fastly.jsdelivr.net/gh/yeshan333/vfox-mongo@main/assets/mongosh_versions.txt)).
 
+
+## Documentation website
+
+[中文](https://shansan.top/vfox-mongo/) · [English](https://shansan.top/vfox-mongo/en/)
+
+The bilingual site is maintained under `website/`. See [website/README.md](website/README.md) for local build and deployment instructions.
