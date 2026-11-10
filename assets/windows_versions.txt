@@ -1,9 +1,17 @@
+windows-x86_64-9.0.8
+windows-x86_64-enterprise-9.0.8
+windows-x86_64-9.0.7
+windows-x86_64-enterprise-9.0.7
 windows-x86_64-9.0.4
 windows-x86_64-enterprise-9.0.4
 windows-x86_64-9.0.2
 windows-x86_64-enterprise-9.0.2
 windows-x86_64-9.0.0-rc0
 windows-x86_64-enterprise-9.0.0-rc0
+windows-x86_64-8.3.17
+windows-x86_64-enterprise-8.3.17
+windows-x86_64-8.3.16
+windows-x86_64-enterprise-8.3.16
 windows-x86_64-8.3.13
 windows-x86_64-enterprise-8.3.13
 windows-x86_64-8.3.11
@@ -124,6 +132,10 @@ windows-x86_64-8.1.0-rc0
 windows-x86_64-enterprise-8.1.0-rc0
 windows-x86_64-8.1.0-alpha3
 windows-x86_64-enterprise-8.1.0-alpha3
+windows-x86_64-8.0.38
+windows-x86_64-enterprise-8.0.38
+windows-x86_64-8.0.37
+windows-x86_64-enterprise-8.0.37
 windows-x86_64-8.0.34
 windows-x86_64-enterprise-8.0.34
 windows-x86_64-8.0.32
@@ -338,6 +350,8 @@ windows-x86_64-7.1.0-rc0
 windows-x86_64-enterprise-7.1.0-rc0
 windows-x86_64-7.1.0-alpha0
 windows-x86_64-enterprise-7.1.0-alpha0
+windows-x86_64-7.0.48
+windows-x86_64-enterprise-7.0.48
 windows-x86_64-7.0.45
 windows-x86_64-enterprise-7.0.45
 windows-x86_64-7.0.43
@@ -574,6 +588,8 @@ windows-x86_64-6.1.0-rc1
 windows-x86_64-enterprise-6.1.0-rc1
 windows-x86_64-6.1.0-rc0
 windows-x86_64-enterprise-6.1.0-rc0
+windows-x86_64-6.0.30
+windows-x86_64-enterprise-6.0.30
 windows-x86_64-6.0.29
 windows-x86_64-enterprise-6.0.29
 windows-x86_64-6.0.28
@@ -802,6 +818,8 @@ windows-x86_64-5.1.0-rc1
 windows-x86_64-enterprise-5.1.0-rc1
 windows-x86_64-5.1.0-rc0
 windows-x86_64-enterprise-5.1.0-rc0
+windows-x86_64-5.0.35
+windows-x86_64-enterprise-5.0.35
 windows-x86_64-5.0.34
 windows-x86_64-enterprise-5.0.34
 windows-x86_64-5.0.33
@@ -989,6 +1007,8 @@ windows-x86_64-4.9.0-alpha4
 windows-x86_64-enterprise-4.9.0-alpha4
 windows-x86_64-4.9.0-alpha3
 windows-x86_64-enterprise-4.9.0-alpha3
+windows-x86_64-4.4.32
+windows-x86_64-enterprise-4.4.32
 windows-x86_64-4.4.31
 windows-x86_64-enterprise-4.4.31
 windows-x86_64-4.4.30
