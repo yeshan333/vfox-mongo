@@ -54404,7 +54404,7 @@
             "lts_release": true,
             "notes": "https://docs.mongodb.org/master/release-notes/8.0/",
             "production_release": true,
-            "public_githash": "b2f7afe3a6838999fd375c7a7ea678189f795568",
+            "public_githash": "11d6674e73e4b36060314e68d7a12656d6a12aab",
             "release_candidate": false,
             "version": "8.0.38"
         },
